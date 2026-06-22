@@ -1,4 +1,9 @@
 class WhiteboardApp {
+  static MIN_OFFSET = 20;
+  static MAX_HORIZONTAL_OFFSET = 280;
+  static MAX_VERTICAL_OFFSET = 180;
+  static FEEDBACK_SUMMARY_LIMIT = 700;
+
   constructor() {
     this.board = document.getElementById('board');
     this.template = document.getElementById('stickyTemplate');
@@ -111,7 +116,22 @@ class WhiteboardApp {
 
     const actions = document.createElement('div');
     actions.className = 'item-actions';
-    actions.innerHTML = `<strong>${title}</strong><button class="pin" title="Thumb tack">📌</button><button class="remove" title="Remove">✖</button>`;
+    const name = document.createElement('strong');
+    name.textContent = title;
+
+    const pinButton = document.createElement('button');
+    pinButton.className = 'pin';
+    pinButton.title = 'Thumb tack';
+    pinButton.textContent = '📌';
+
+    const removeButton = document.createElement('button');
+    removeButton.className = 'remove';
+    removeButton.title = 'Remove';
+    removeButton.textContent = '✖';
+
+    actions.appendChild(name);
+    actions.appendChild(pinButton);
+    actions.appendChild(removeButton);
 
     wrapper.appendChild(actions);
     this.prepareBoardItem(wrapper);
@@ -119,8 +139,12 @@ class WhiteboardApp {
   }
 
   prepareBoardItem(item) {
-    item.style.left = `${Math.floor(Math.random() * 280 + 20)}px`;
-    item.style.top = `${Math.floor(Math.random() * 180 + 20)}px`;
+    item.style.left = `${Math.floor(
+      Math.random() * WhiteboardApp.MAX_HORIZONTAL_OFFSET + WhiteboardApp.MIN_OFFSET
+    )}px`;
+    item.style.top = `${Math.floor(
+      Math.random() * WhiteboardApp.MAX_VERTICAL_OFFSET + WhiteboardApp.MIN_OFFSET
+    )}px`;
 
     const pin = item.querySelector('.pin');
     const remove = item.querySelector('.remove');
@@ -200,7 +224,9 @@ class WhiteboardApp {
 
   async sendFeedback() {
     try {
-      const analysis = document.getElementById('analysisResult').textContent.slice(0, 700);
+      const analysis = document
+        .getElementById('analysisResult')
+        .textContent.slice(0, WhiteboardApp.FEEDBACK_SUMMARY_LIMIT);
       const rating = document.getElementById('feedbackRating').value;
       const notes = document.getElementById('feedbackNotes').value;
 
