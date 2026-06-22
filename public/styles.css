@@ -1,0 +1,138 @@
+:root {
+  --bg-a: #28104e;
+  --bg-b: #6237a0;
+  --card: rgba(255, 255, 255, 0.12);
+  --accent: #ff6bcb;
+  --accent-2: #00d2ff;
+  --text: #faf7ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top right, #9d4edd, var(--bg-a) 50%, #1a0933);
+}
+
+header {
+  padding: 1rem 1.2rem;
+  text-align: center;
+}
+
+main {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 6px solid var(--accent-2);
+  border-radius: 14px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  padding: 1rem;
+  backdrop-filter: blur(6px);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.workspace {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.55rem 0.95rem;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #1f1533;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.button.small {
+  margin-top: 0.5rem;
+}
+
+#canvas {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: #fff;
+}
+
+textarea,
+select {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+#analysisResult {
+  max-height: 170px;
+  overflow: auto;
+  background: rgba(8, 10, 32, 0.45);
+  border-radius: 8px;
+  padding: 0.7rem;
+}
+
+.board {
+  min-height: 340px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.5);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 107, 203, 0.14), rgba(0, 210, 255, 0.14));
+}
+
+.board-item {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  width: 220px;
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: #24143d;
+  background: #ffec85;
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.2);
+}
+
+.board-item.pinned {
+  outline: 3px solid #ff3366;
+}
+
+.board-item img,
+.board-item iframe,
+.board-item video {
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  min-height: 120px;
+}
+
+.item-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-actions button {
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+}
