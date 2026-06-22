@@ -1,0 +1,24 @@
+{
+  "name": "whiteboard",
+  "version": "1.0.0",
+  "description": "An AI whiteboard platform that helps understand you",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/profefernandez/whiteboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/profefernandez/whiteboard/issues"
+  },
+  "homepage": "https://github.com/profefernandez/whiteboard#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

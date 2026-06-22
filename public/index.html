@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Whiteboard</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>AI Whiteboard Agent</h1>
+      <p>Map ideas, intersections, and creative artifacts in one colorful board.</p>
+    </header>
+
+    <main>
+      <section class="toolbar card">
+        <label class="button">
+          Upload Picture
+          <input id="imageUpload" type="file" accept="image/*" hidden />
+        </label>
+        <button id="addSticky" class="button">Sticky Note</button>
+        <button id="addWebsite" class="button">Website Note</button>
+        <button id="addVideo" class="button">Video Panel</button>
+        <button id="exportDoc" class="button">Create Word Document</button>
+      </section>
+
+      <section class="workspace">
+        <article class="card draw-panel">
+          <h2>Free Draw</h2>
+          <canvas id="canvas" width="600" height="320"></canvas>
+          <button id="clearCanvas" class="button small">Clear Drawing</button>
+        </article>
+
+        <article class="card agent-panel">
+          <h2>Idea Agent</h2>
+          <textarea id="ideas" placeholder="One idea per line"></textarea>
+          <button id="analyzeIdeas" class="button">Analyze Intersections</button>
+          <pre id="analysisResult"></pre>
+
+          <h3>Feedback Loop</h3>
+          <select id="feedbackRating">
+            <option value="helpful">Helpful</option>
+            <option value="neutral">Neutral</option>
+            <option value="not_helpful">Not Helpful</option>
+          </select>
+          <textarea id="feedbackNotes" placeholder="How can the agent improve?"></textarea>
+          <button id="sendFeedback" class="button small">Send Feedback</button>
+        </article>
+      </section>
+
+      <section id="board" class="board" aria-label="Whiteboard canvas"></section>
+    </main>
+
+    <template id="stickyTemplate">
+      <div class="board-item sticky" draggable="true">
+        <div class="item-actions">
+          <button class="pin" title="Thumb tack">📌</button>
+          <button class="remove" title="Remove">✖</button>
+        </div>
+        <textarea placeholder="Write your note..."></textarea>
+      </div>
+    </template>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
