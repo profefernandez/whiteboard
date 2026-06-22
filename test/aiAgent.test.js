@@ -43,6 +43,9 @@ test('logError and logFeedback append structured entries', () => {
 
   const errorLines = fs.readFileSync(errorPath, 'utf8').trim().split('\n');
   const feedbackLines = fs.readFileSync(feedbackPath, 'utf8').trim().split('\n');
+  assert.ok(errorLines.length > 0 && errorLines.at(-1), 'Error log must contain an entry');
+  assert.ok(feedbackLines.length > 0 && feedbackLines.at(-1), 'Feedback log must contain an entry');
+
   const errorEntry = JSON.parse(errorLines.at(-1));
   const feedbackEntry = JSON.parse(feedbackLines.at(-1));
 

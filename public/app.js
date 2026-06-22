@@ -192,9 +192,11 @@ class WhiteboardApp {
     const notes = [...this.board.querySelectorAll('textarea')]
       .map((node) => node.value.trim())
       .filter(Boolean)
-      .join('\n\n');
+      .map((note) => `<p>${note.replace(/[<>&]/g, (char) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[char]))}</p>`)
+      .join('');
 
-    const doc = new Blob([notes || 'Whiteboard notes'], { type: 'application/msword' });
+    const htmlDoc = `<!doctype html><html><body>${notes || '<p>Whiteboard notes</p>'}</body></html>`;
+    const doc = new Blob([htmlDoc], { type: 'application/msword' });
     const url = URL.createObjectURL(doc);
     const link = document.createElement('a');
     link.href = url;
