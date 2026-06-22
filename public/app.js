@@ -192,7 +192,7 @@ class WhiteboardApp {
     const notes = [...this.board.querySelectorAll('textarea')]
       .map((node) => node.value.trim())
       .filter(Boolean)
-      .map((note) => `<p>${note.replace(/[<>&]/g, (char) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[char]))}</p>`)
+      .map((note) => `<p>${this.escapeHtml(note)}</p>`)
       .join('');
 
     const htmlDoc = `<!doctype html><html><body>${notes || '<p>Whiteboard notes</p>'}</body></html>`;
@@ -256,3 +256,8 @@ class WhiteboardApp {
 
 window.WhiteboardApp = WhiteboardApp;
 window.addEventListener('DOMContentLoaded', () => new WhiteboardApp());
+  escapeHtml(value) {
+    return value.replace(/[<>&"']/g, (char) =>
+      ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;' }[char])
+    );
+  }

@@ -35,16 +35,22 @@ test('logError and logFeedback append structured entries', () => {
   const errorPath = path.join(logsDir, 'errors.log');
   const feedbackPath = path.join(logsDir, 'feedback.log');
 
-  if (fs.existsSync(errorPath)) fs.unlinkSync(errorPath);
-  if (fs.existsSync(feedbackPath)) fs.unlinkSync(feedbackPath);
+  const previousErrorLines = fs.existsSync(errorPath)
+    ? fs.readFileSync(errorPath, 'utf8').trim().split('\n').filter(Boolean).length
+    : 0;
+  const previousFeedbackLines = fs.existsSync(feedbackPath)
+    ? fs.readFileSync(feedbackPath, 'utf8').trim().split('\n').filter(Boolean).length
+    : 0;
 
   logError(new Error('test failure'));
   logFeedback({ rating: 'helpful', summary: 'ok' });
 
-  const errorLines = fs.readFileSync(errorPath, 'utf8').trim().split('\n');
-  const feedbackLines = fs.readFileSync(feedbackPath, 'utf8').trim().split('\n');
+  const errorLines = fs.readFileSync(errorPath, 'utf8').trim().split('\n').filter(Boolean);
+  const feedbackLines = fs.readFileSync(feedbackPath, 'utf8').trim().split('\n').filter(Boolean);
   assert.ok(errorLines.length > 0 && errorLines.at(-1), 'Error log must contain an entry');
   assert.ok(feedbackLines.length > 0 && feedbackLines.at(-1), 'Feedback log must contain an entry');
+  assert.equal(errorLines.length, previousErrorLines + 1);
+  assert.equal(feedbackLines.length, previousFeedbackLines + 1);
 
   const errorEntry = JSON.parse(errorLines.at(-1));
   const feedbackEntry = JSON.parse(feedbackLines.at(-1));

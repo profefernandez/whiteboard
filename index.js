@@ -16,7 +16,7 @@ app.post('/api/analyze', (req, res, next) => {
     const { ideas } = req.body || {};
 
     if (!Array.isArray(ideas) || ideas.length === 0) {
-      return res.status(400).json({ error: 'Provide a non-empty ideas array.' });
+      return res.status(400).json({ error: 'Request body must contain a non-empty array of ideas.' });
     }
 
     const result = agent.analyze(ideas);
